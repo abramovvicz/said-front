@@ -43,6 +43,9 @@
         </tr>
       </tbody>
     </table>
+
+  <div>
+      <button class="btn btn-primary" v-on:click="showMeasurements">DIPA CHUJ </button>
   </div>
 </template>
 
@@ -50,11 +53,13 @@
 import axios from "axios";
 export default {
   name: "Measurements",
+
   props: {
     msg: String,
   },
   data() {
     return {
+
       measurements: [],
       descriptions: [],
       src: "data:image/jpeg;base64",

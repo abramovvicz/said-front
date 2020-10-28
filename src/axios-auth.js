@@ -10,7 +10,6 @@ const AXIOS = axios.create({
 
 export default {
     getMeasurements() {
-        console.log("czy to sie wykonuje?")
         return AXIOS.get('/measurements/')
     }
 }
