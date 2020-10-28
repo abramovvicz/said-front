@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h4>HELLO WOLRD</h4>
-    <h2>{{ name }}</h2>
+    <h4>SAID APP</h4>
+    <!-- <h2>{{ name }}</h2>
     <div class="row" v-for="t in tasks" v-bind:key="t.action">
       <div class="col">{{t.action}}</div>
       <div class="col">{{t.done}}</div>
@@ -13,8 +13,8 @@
         :key="item.id"
       ></span>
     </div>
-    <button class="btn" v-on:click="getMeasruement"> SOME BUTTON </button>
-  </div>
+    <button class="btn" v-on:click="getMeasruement"> SOME BUTTON </button>-->
+  </div> 
 </template>
 
 <script>
