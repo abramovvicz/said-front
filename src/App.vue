@@ -1,21 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg=""/>
+    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+    <Header msg="header" />
+    <Content msg="content"/>
     <Measurements msg="JEBAC"  />
-
+    <Footer msg="footer"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import Measurements from './components/Measurements.vue'
+import Footer from './components/Footer'
+import Content from './components/Content'
+import Header from './components/Header'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-    Measurements
+    Measurements,
+    Footer,
+    Content,
+    Header
+
   }
 }
 </script>

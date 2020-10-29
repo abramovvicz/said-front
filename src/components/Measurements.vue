@@ -46,6 +46,7 @@
 
   <div>
       <button class="btn btn-primary" v-on:click="showMeasurements">DIPA CHUJ </button>
+      </div>
   </div>
 </template>
 
