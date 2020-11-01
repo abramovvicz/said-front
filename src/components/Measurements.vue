@@ -1,12 +1,6 @@
 <template>
-  <div class="measurements">
-    <h1>{{ msg }}</h1>
-    <button class="btn btn-primary" v-on:click="showMeasurements">
-      SHOW MEASUREMENTS
-    </button>
-    <!-- <div v-for="id in measurements" v-bind:key="id">"dupa"</div> -->
-
-    <table class="sectioned">
+  <v-container>
+   <table class="sectioned">
       <tbody>
         <tr v-for="m in measurements" v-bind:key="m.id">
           <td>{{ m.id }}</td>
@@ -43,11 +37,7 @@
         </tr>
       </tbody>
     </table>
-
-  <div>
-      <button class="btn btn-primary" v-on:click="showMeasurements">DIPA CHUJ </button>
-      </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -57,6 +47,9 @@ export default {
 
   props: {
     msg: String,
+  },
+  mounted:function(){
+    this.showMeasurements()
   },
   data() {
     return {

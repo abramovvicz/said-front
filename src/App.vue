@@ -3,13 +3,13 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <Header msg="header" />
     <Content msg="content"/>
-    <Measurements msg="JEBAC"  />
+   
     <Footer msg="footer"/>
   </div>
 </template>
 
 <script>
-import Measurements from './components/Measurements.vue'
+
 import Footer from './components/Footer'
 import Content from './components/Content'
 import Header from './components/Header'
@@ -17,7 +17,6 @@ import Header from './components/Header'
 export default {
   name: 'App',
   components: {
-    Measurements,
     Footer,
     Content,
     Header
