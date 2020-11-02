@@ -1,9 +1,30 @@
-<template>
-  <v-container>
-   <table class="sectioned">
+<template >
+  <v-list two-line align="left" justify="left">
+    <v-card v-for="m in measurements" v-bind:key="m.id">
+      <v-list-item :key="m.id">
+        <v-list-item-content>
+          <v-list-item-title>{{
+            m.createdAt.substring(0, m.createdAt.indexOf("T"))
+          }}</v-list-item-title>
+        </v-list-item-content>
+        <v-list-item-content>
+          <v-list-item-title>{{ m.hydrantType }}</v-list-item-title>
+          <v-list-item-subtitle>
+            {{ m.address }}
+          </v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-content>
+          <v-btn text>
+            <v-icon> mdi-arrow-right {{m.id}} </v-icon>
+          </v-btn>
+        </v-list-item-content>
+      </v-list-item>
+    </v-card>
+  </v-list>
+  <!-- <table class="sectioned">
       <tbody>
         <tr v-for="m in measurements" v-bind:key="m.id">
-          <td>{{ m.id }}</td>
+          <td></td>
           <td>{{ m.address }}</td>
           <td>{{ m.createdAt }}</td>
           <td>{{ m.updatedAt }}</td>
@@ -33,11 +54,10 @@
               </td>
             </tr>
           </td>
-          <td><img src="src"/></td>
+          <td><img src="src" /></td>
         </tr>
       </tbody>
-    </table>
-  </v-container>
+    </table> -->
 </template>
 
 <script>
@@ -48,12 +68,11 @@ export default {
   props: {
     msg: String,
   },
-  mounted:function(){
-    this.showMeasurements()
+  mounted: function () {
+    this.showMeasurements();
   },
   data() {
     return {
-
       measurements: [],
       descriptions: [],
       src: "data:image/jpeg;base64",

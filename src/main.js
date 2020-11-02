@@ -7,7 +7,6 @@ import vuetify from '@/plugins/vuetify'
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
-
 new Vue({
   vuetify,
   render: h => h(App),
