@@ -43,7 +43,7 @@
         <v-card class="pa-2" flat>
           <v-row class="mb-6">
             <v-col>
-           <Measurements />
+           <Measurement />
             </v-col>
           </v-row>
         </v-card>
@@ -56,12 +56,12 @@
 
 
 <script>
-import Measurements from "./Measurements.vue";
+import Measurement from "./Measurement.vue";
 
 export default {
   name: "App",
   components: {
-    Measurements,
+    Measurement,
   },
   data: () => ({
     items: ["Foo", "Bar", "Fizz", "Buzz"],
