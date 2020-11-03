@@ -1,211 +1,207 @@
 <template>
-  <v-form ref="form" v-model="valid" lazy-validation>
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Nazwa sieci"
-      required
-    ></v-text-field>
+  <v-container>
+    <v-row>
+      <v-col justify="left" align="left"
+        >Data pomiaru: {{ currentDateWithNeededFormat | formatDate }}
+      </v-col>
+      <v-col justify="left" align="left">Termin następnego pomiaru: </v-col>
+    </v-row>
+    <v-row>
+      <v-col
+        ><v-form ref="form" v-model="valid" lazy-validation>
+          <v-row>
+            <v-col>
+              <v-text-field
+                v-model="name"
+                :counter="10"
+                :rules="nameRules"
+                label="Nazwa sieci"
+                required
+              ></v-text-field>
+            </v-col>
+            <v-col>
+              <v-text-field
+                v-model="name"
+                :counter="10"
+                :rules="nameRules"
+                label="Adres pomiaru"
+                required
+              ></v-text-field>
+            </v-col>
+          </v-row>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Adres pomiaru"
-      required
-    ></v-text-field>
+          <v-row>
+            <v-col justify="left" align="left">
+              Wybierz rodzaj hydrantu:
+              <v-radio-group v-model="row" row>
+                <v-radio label="Zewnętrzny" value="radio-1"></v-radio>
+                <v-radio label="Wewnętrzny" value="radio-2"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col justify="left" align="left">
+              Jeśli Zewnętrzny to wybierz podz czy naziemny (dodać funk ze samo
+              sie pjawia luz znika)
+              <v-radio-group v-model="row" row>
+                <v-radio label="Nadziemny" value="radio-1"></v-radio>
+                <v-radio label="Podziemny" value="radio-2"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col justify="left" align="left">
+              Wybierz średnicę:
+              <v-radio-group v-model="row" row>
+                <v-radio label="DN80" value="radio-1"></v-radio>
+                <v-radio label="DN100" value="radio-2"></v-radio>
+                <v-radio label="DN150" value="radio-3"></v-radio>
+                <v-radio label="DN200" value="radio-4"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Data pomiaru - uzupełniony automatycznie"
-      required
-    ></v-text-field>
+          <v-row>
+            <v-col justify="left" align="left">
+              Dostępość do hydrantu:
+              <v-radio-group v-model="row" row>
+                <v-radio label="TAK" value="radio-1"></v-radio>
+                <v-radio label="NIE" value="radio-2"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Termin następnego badania - uzupełniony automatycznie"
-      required
-    ></v-text-field>
+          <v-row>
+            <v-col justify="left" align="left">
+              Dostępość do zasuwy:
+              <v-radio-group v-model="row" row>
+                <v-radio label="TAK" value="radio-1"></v-radio>
+                <v-radio label="NIE" value="radio-2"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Wybierz rodzaj hydrantu"
-      required
-    ></v-text-field>
+          <v-row>
+            <v-col justify="left" align="left">
+              Oznakowanie hydrantu znakiem 'H'
+              <v-radio-group v-model="row" row>
+                <v-radio label="TAK" value="radio-1"></v-radio>
+                <v-radio label="NIE" value="radio-2"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Średnica hydrantu"
-      required
-    ></v-text-field>
+          <v-row>
+            <v-col justify="left" align="left">
+              Oznakowanie hydrantu tablicznką o.u.p.w.
+              <v-radio-group v-model="row" row>
+                <v-radio label="TAK" value="radio-1"></v-radio>
+                <v-radio label="NIE" value="radio-2"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Dysza pomiarowa"
-      required
-    ></v-text-field>
+          <v-row>
+            <v-col justify="left" align="left">
+              Oznakowanie zasuwy tablicznką o.u.p.w.
+              <v-radio-group v-model="row" row>
+                <v-radio label="TAK" value="radio-1"></v-radio>
+                <v-radio label="NIE" value="radio-2"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Stan powłoki lakierniczej od 1 - do 3"
-      required
-    ></v-text-field>
+          <v-row>
+            <v-col justify="left" align="left">
+              Stan nasad Storz`a
+              <v-radio-group v-model="row" row>
+                <v-radio label="OK" value="radio-1"></v-radio>
+                <v-radio label="NIE OK" value="radio-2"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Dostępność do hydrantu"
-      required
-    ></v-text-field>
+          <v-row>
+            <v-col justify="left" align="left">
+              Stan uszczelek
+              <v-radio-group v-model="row" row>
+                <v-radio label="OK" value="radio-1"></v-radio>
+                <v-radio label="NIE OK" value="radio-2"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Dostępność do zasuwy"
-      required
-    ></v-text-field>
+          <v-row>
+            <v-col justify="left" align="left">
+              Ilość pokryw
+              <v-radio-group v-model="row" row>
+                <v-radio label="1" value="radio-1"></v-radio>
+                <v-radio label="2" value="radio-2"></v-radio>
+                <v-radio label="3" value="radio-3"></v-radio>
+                <v-radio label="4" value="radio-4"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col justify="left" align="left">
+              Odległość od najbliższego budynku
+              <v-radio-group v-model="row" row>
+                <v-radio label="OK" value="radio-1"></v-radio>
+                <v-radio label="NIE OK" value="radio-2"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Oznakowanie hydrantu znakiem 'H' "
-      required
-    ></v-text-field>
+          <v-text-field
+            v-model="name"
+            :counter="10"
+            :rules="nameRules"
+            label="Ciśnienie statyczne"
+            required
+          ></v-text-field>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Oznakowanie hydrantu tabliczką o.u.p.w."
-      required
-    ></v-text-field>
+          <v-text-field
+            v-model="name"
+            :counter="10"
+            :rules="nameRules"
+            label="Ciśnienie dynamiczne"
+            required
+          ></v-text-field>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Oznakowanie zasuwy tabliczką o.u.p.w."
-      required
-    ></v-text-field>
+          <v-text-field
+            v-model="name"
+            :counter="10"
+            :rules="nameRules"
+            label="Wydajność hydrantu"
+            required
+          ></v-text-field>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Stan nasad Storz`a"
-      required
-    ></v-text-field>
+          <v-row>
+            <v-col justify="left" align="left">
+              Odległość od najbliższego budynku
+              <v-radio-group v-model="row" row>
+                <v-radio label="OK" value="radio-1"></v-radio>
+                <v-radio label="NIE OK" value="radio-2"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Stan uszczelek"
-      required
-    ></v-text-field>
+          <!-- <v-btn
+            :disabled="!valid"
+            color="success"
+            class="mr-4"
+            @click="validate"
+          >
+            ZAPISZ
+          </v-btn>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Stan uszczelek"
-      required
-    ></v-text-field>
+          <v-btn color="error" class="mr-4" @click="reset"> WYCZYŚĆ </v-btn>
 
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Ilość pokryw"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Odległość od najbliższego budynku"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Ciśnienie statyczne"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Ciśnienie dynamiczne"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Wydajność hydrantu"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label=" Odwodnienie hydrantu"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="E-mail"
-      required
-    ></v-text-field>
-
-    <v-select
-      v-model="select"
-      :items="items"
-      :rules="[(v) => !!v || 'Item is required']"
-      label="Item"
-      required
-    ></v-select>
-
-    <v-checkbox
-      v-model="checkbox"
-      :rules="[(v) => !!v || 'You must agree to continue!']"
-      label="Do you agree?"
-      required
-    ></v-checkbox>
-
-    <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
-      Validate
-    </v-btn>
-
-    <v-btn color="error" class="mr-4" @click="reset"> Reset Form </v-btn>
-
-    <v-btn color="warning" @click="resetValidation"> Reset Validation </v-btn>
-  </v-form>
+          <v-btn color="warning" @click="resetValidation"> ANULUJ </v-btn> -->
+        </v-form></v-col
+      >
+    </v-row>
+  </v-container>
 </template>
 
 
@@ -278,83 +274,55 @@
 
 <script>
 export default {
-  data: () => ({
-    valid: true,
-    name: "",
-    nameRules: [
-      (v) => !!v || "Name is required",
-      (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-    ],
-    email: "",
-    emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-    ],
-    select: null,
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-    checkbox: false,
-  }),
+  mounted: function () {
+    this.checkCurrentDate();
+  },
+  data() {
+    return {
+      currentDateWithNeededFormat: "",
+      currentDate: "",
+      valid: true,
+      name: "",
+      nameRules: [
+        (v) => !!v || "Name is required",
+        (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      ],
+      email: "",
+      emailRules: [
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
+      select: null,
+      items: ["Item 1", "Item 2", "Item 3", "Item 4"],
+      checkbox: false,
 
+      reset: true,
+    };
+  },
   methods: {
-    validate() {
-      this.$refs.form.validate();
-    },
-    reset() {
-      this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
+    // validate() {
+    //   this.$refs.form.validate();
+    // },
+    // reset() {
+    //   this.$refs.form.reset();
+    // },
+    // resetValidation() {
+    //   this.$refs.form.resetValidation();
+    // },
+    checkCurrentDate() {
+      this.currentDate = new Date();
+      this.currentDateWithNeededFormat = this.currentDate
+        .toJSON()
+        .slice(0, 10)
+        .replace(/-/g, ".");
+      console.log(this.currentDateWithNeededFormat + "Data");
     },
   },
 };
 </script>
 
 
-/// <script>
-// import axios from "axios";
-// export default {
-//   name: "Measurements",
 
-//   props: {
-//     msg: String,
-//   },
-//   mounted: function () {
-//     this.showMeasurements();
-//   },
-//   data() {
-//     return {
-//       measurements: [],
-//       descriptions: [],
-//       src: "data:image/jpeg;base64",
-//       names: [
-//         {
-//           id: 1,
-//           name: "one",
-//         },
-//         { id: 2, name: "two" },
-//       ],
-//     };
-//   },
-//   methods: {
-//     showMeasurements() {
-//       return axios
-//         .get("http://localhost:9092/measurements/")
-//         .then((response) => {
-//           this.measurements = response.data.result;
-//           this.descriptions = this.measurements.descriptions;
-//           var bytes = new Uint32Array(this.measurements[3].photo);
-//           var binary = bytes.reduce(
-//             (data, b) => (data += String.fromCharCode(b)),
-//             ""
-//           );
-//           this.src = "data:image/jpeg;base64," + btoa(binary);
-//           console.log(this.src);
-//         });
-//     },
-//   },
-// };
-//
-</script>
 
 <style scoped>
 table {
