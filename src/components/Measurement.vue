@@ -3,11 +3,10 @@
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-row>
         <v-col justify="left" align="left"
-          >Data pomiaru: {{ form.currentDateWithNeededFormat | formatDate }}
+          >Data pomiaru: {{ form.createdAt | formatDate }}
         </v-col>
         <v-col justify="left" align="left"
-          >Termin następnego pomiaru:
-          {{ form.nextMeasurementDate | formatDate }}</v-col
+          >Termin następnego pomiaru: {{ form.updatedAt | formatDate }}</v-col
         >
       </v-row>
       <v-row>
@@ -36,21 +35,17 @@
           <v-row>
             <v-col justify="left" align="left">
               Wybierz rodzaj hydrantu:
-              <v-radio-group
-                v-model="form.hideHydrantInOutType"
-                :mandatory="false"
-                row
-              >
+              <v-radio-group v-model="form.hydrantType" :mandatory="false" row>
                 <v-radio label="Zewnętrzny" :value="1"></v-radio>
                 <v-radio label="Wewnętrzny" :value="0"></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
-          <v-row v-if="form.hideHydrantInOutType === 1">
+          <v-row v-if="form.hydrantType === 1">
             <v-col justify="left" align="left">
               Wybierz typ hydrantu:
               <v-radio-group
-                v-model="form.hideHydrantDiameters"
+                v-model="form.hydrantSubType"
                 :mandatory="false"
                 row
               >
@@ -59,29 +54,29 @@
               </v-radio-group>
             </v-col>
           </v-row>
-          <v-row v-if="form.hideHydrantInOutType === 1">
+          <v-row v-if="form.hydrantSubType === 1">
             <v-col justify="left" align="left">
               Wybierz średnicę:
-              <v-radio-group v-model="form.diameter" row>
+              <v-radio-group v-model="form.hydrantDiameter" row>
                 <v-radio label="DN80" value="radio-1"></v-radio>
                 <v-radio label="DN100" value="radio-2"></v-radio>
                 <v-radio
-                  v-if="form.hideHydrantDiameters === 1"
+                  v-if="form.hydrantDiameter === 1"
                   label="DN150"
                   value="radio-3"
                 ></v-radio>
                 <v-radio
-                  v-if="form.hideHydrantDiameters === 1"
+                  v-if="form.hydrantDiameter === 1"
                   label="DN200"
                   value="radio-4"
                 ></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
-          <v-row v-if="form.hideHydrantInOutType === 0">
+          <v-row v-if="form.hydrantSubType === 0">
             <v-col justify="left" align="left">
               Wybierz średnicę:
-              <v-radio-group v-model="form.diameter" row>
+              <v-radio-group v-model="form.hydrantDiameter" row>
                 <v-radio label="DN25" value="radio-1"></v-radio>
                 <v-radio label="DN33" value="radio-2"></v-radio>
                 <v-radio label="DN52" value="radio-3"></v-radio>
@@ -210,7 +205,7 @@
           ></v-text-field>
 
           <v-text-field
-            v-model="form.hydrantPerformence"
+            v-model="form.hydrantEfficiency"
             :rules="nameRules"
             label="Wydajność hydrantu"
             suffix="Mpa"
@@ -309,55 +304,51 @@ import axios from "axios";
 export default {
   mounted: function () {
     this.checkCurrentDate();
-    this.countNextMeasurementDate();
+    this.countupdatedAt();
   },
   data() {
     const measurementForm = Object.freeze({
-      currentDateWithNeededFormat: "",
-      nextMeasurementDate: "",
-      hideHydrantInOutType: 0,
-      hideHydrantDiameters: 0,
-      reset: true,
-      diameter: "",
-      hydrantAvailable: "",
-      barAvailable: "",
-      nameNet: "",
-      address: "",
-      asignH: "",
-      asignOUPW: "",
-      asignBarOUPW: "",
-      storz: "",
-      rubber: "",
-      cover: "",
-      nearestBuilding: "",
-      staticPreasure: "",
-      dynamicPreasure: "",
-      hydrantPerformence: "",
-      dehydration: "",
+      createdAt: "",
+      updatedAt: "",
+      hydrantType: 0,
+      hydrantSubType: 0,
+      hydrantDiameter: 0,
+      descirptions: [
+        {
+          name: "parametr 100 ",
+          status: 1,
+          comments: "chuj"
+        },
+      ],
 
-      //zamienic napelnoprawny JSON 
+      staticPressure: "",
+      dynamicPressure: "",
+      hydrantEfficiency: "",
+     
 
-//       {
-//   "address": "string",
-//   "createdAt": "2020-11-03T22:09:04.583Z",
-//   "descriptions": [
-//     {
-//       "comments": "string",
-//       "createdAt": "2020-11-03T22:09:04.583Z",
-//       "id": 0,
-//       "measurementId": 0,
-//       "name": "string",
-//       "status": 0,
-//       "updatedAt": "2020-11-03T22:09:04.583Z"
-//     }
-//   ],
-//   "hydrantDiameter": "DN100",
-//   "hydrantSubType": "GROUND",
-//   "hydrantType": "INSIDE",
-//   "id": 0,
-//   "photo": "string",
-//   "updatedAt": "2020-11-03T22:09:04.583Z"
-// }
+      //zamienic napelnoprawny JSON
+
+      //       {
+      //   "address": "string",
+      //   "createdAt": "2020-11-03T22:09:04.583Z",
+      //   "descriptions": [
+      //     {
+      //       "comments": "string",
+      //       "createdAt": "2020-11-03T22:09:04.583Z",
+      //       "id": 0,
+      //       "measurementId": 0,
+      //       "name": "string",
+      //       "status": 0,
+      //       "updatedAt": "2020-11-03T22:09:04.583Z"
+      //     }
+      //   ],
+      //   "hydrantDiameter": "DN100",
+      //   "hydrantSubType": "GROUND",
+      //   "hydrantType": "INSIDE",
+      //   "id": 0,
+      //   "photo": "string",
+      //   "updatedAt": "2020-11-03T22:09:04.583Z"
+      // }
     });
     return {
       form: Object.assign({}, measurementForm),
@@ -380,6 +371,18 @@ export default {
         "Content-Type": "application/json;charset=utf-8",
       },
       ipAddress: "http://localhost:9092",
+      hydrantAvailable: "",
+          barAvailable: "",
+          nameNet: "",
+          address: "",
+          asignH: "",
+          asignOUPW: "",
+          asignBarOUPW: "",
+          storz: "",
+          rubber: "",
+          cover: "",
+          nearestBuilding: "",
+           dehydration: "",
     };
   },
   methods: {
@@ -394,14 +397,14 @@ export default {
     // },
     checkCurrentDate() {
       this.currentDate = new Date();
-      this.form.currentDateWithNeededFormat = this.currentDate
+      this.form.createdAt = this.currentDate
         .toJSON()
         .slice(0, 10)
         .replace(/-/g, ".");
     },
-    countNextMeasurementDate() {
-      this.form.nextMeasurementDate = moment(this.currentDateWithNeededFormat);
-      this.form.nextMeasurementDate.add(1, "y");
+    countupdatedAt() {
+      this.form.updatedAt = moment(this.createdAt);
+      this.form.updatedAt.add(1, "y");
     },
     sendFormMeasurementToBackend() {
       Object.keys(this.form).forEach((value) => {
@@ -434,7 +437,7 @@ export default {
     sendFormMeasurementToBackendSecond() {
       return axios
         .post("http://localhost:9092/measurements/", {
-         form:'form'
+          form: "form",
         })
         .then((response) => {
           JSON.stringify(this.form), this.headers;
