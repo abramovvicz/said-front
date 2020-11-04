@@ -3,10 +3,10 @@
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-row>
         <v-col justify="left" align="left"
-          >Data pomiaru: {{ form.createdAt | formatDate }}
+          >Data pomiaru: {{ form.createdAt}}
         </v-col>
         <v-col justify="left" align="left"
-          >Termin następnego pomiaru: {{ form.updatedAt | formatDate }}</v-col
+          >Termin następnego pomiaru: {{ form.updatedAt }}</v-col
         >
       </v-row>
       <v-row>
@@ -216,7 +216,7 @@
           <v-btn
             color="success"
             class="mr-4"
-            @click="sendFormMeasurementToBackendSecond"
+            @click="sendFormMeasurementToBackend"
           >
             ZAPISZ
           </v-btn>
@@ -304,55 +304,58 @@ import axios from "axios";
 export default {
   mounted: function () {
     this.checkCurrentDate();
-    this.countupdatedAt();
+    this.countUpdatedAt();
   },
+  /*
+{
+  "address": "string",
+  "createdAt": "2020-11-04T20:11:32.503Z",
+  "descriptions": [
+    {
+      "comments": "string",
+      "createdAt": "2020-11-04T20:11:32.503Z",
+      "id": 0,
+      "measurementId": 0,
+      "name": "string",
+      "status": 0,
+      "updatedAt": "2020-11-04T20:11:32.503Z"
+    }
+  ],
+  "hydrantDiameter": "DN100",
+  "hydrantSubType": "GROUND",
+  "hydrantType": "INSIDE",
+  "id": 0,
+  "photo": "string",
+  "updatedAt": "2020-11-04T20:11:32.503Z"
+}
+
+
+
+*/
   data() {
     const measurementForm = Object.freeze({
-      createdAt: "",
-      updatedAt: "",
-      hydrantType: 0,
-      hydrantSubType: 0,
-      hydrantDiameter: 0,
-      descirptions: [
+      address: "",
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      descriptions: [
         {
           name: "parametr 100 ",
           status: 1,
-          comments: "chuj"
+          comments: "chuj",
+          createdAt: "",
         },
       ],
-
+      hydrantType: 0,
+      hydrantSubType: 0,
+      hydrantDiameter: 0,
       staticPressure: "",
       dynamicPressure: "",
       hydrantEfficiency: "",
-     
-
-      //zamienic napelnoprawny JSON
-
-      //       {
-      //   "address": "string",
-      //   "createdAt": "2020-11-03T22:09:04.583Z",
-      //   "descriptions": [
-      //     {
-      //       "comments": "string",
-      //       "createdAt": "2020-11-03T22:09:04.583Z",
-      //       "id": 0,
-      //       "measurementId": 0,
-      //       "name": "string",
-      //       "status": 0,
-      //       "updatedAt": "2020-11-03T22:09:04.583Z"
-      //     }
-      //   ],
-      //   "hydrantDiameter": "DN100",
-      //   "hydrantSubType": "GROUND",
-      //   "hydrantType": "INSIDE",
-      //   "id": 0,
-      //   "photo": "string",
-      //   "updatedAt": "2020-11-03T22:09:04.583Z"
-      // }
+      photo: "",
     });
     return {
       form: Object.assign({}, measurementForm),
-      currentDate: "",
+      
       valid: true,
       name: "",
       nameRules: [
@@ -372,17 +375,17 @@ export default {
       },
       ipAddress: "http://localhost:9092",
       hydrantAvailable: "",
-          barAvailable: "",
-          nameNet: "",
-          address: "",
-          asignH: "",
-          asignOUPW: "",
-          asignBarOUPW: "",
-          storz: "",
-          rubber: "",
-          cover: "",
-          nearestBuilding: "",
-           dehydration: "",
+      barAvailable: "",
+      nameNet: "",
+      address: "",
+      asignH: "",
+      asignOUPW: "",
+      asignBarOUPW: "",
+      storz: "",
+      rubber: "",
+      cover: "",
+      nearestBuilding: "",
+      dehydration: "",
     };
   },
   methods: {
@@ -396,25 +399,27 @@ export default {
     //   this.$refs.form.resetValidation();
     // },
     checkCurrentDate() {
-      this.currentDate = new Date();
-      this.form.createdAt = this.currentDate
-        .toJSON()
-        .slice(0, 10)
-        .replace(/-/g, ".");
+      // this.currentDate = 
+      this.form.createdAt = new Date();
+        // .toJSON()
+        // .slice(0, 10)
+        // .replace(/-/g, ".");
     },
-    countupdatedAt() {
+    countUpdatedAt() {
       this.form.updatedAt = moment(this.createdAt);
       this.form.updatedAt.add(1, "y");
     },
     sendFormMeasurementToBackend() {
-      Object.keys(this.form).forEach((value) => {
-        console.log(value);
-      });
+       console.log(JSON.stringify(this.form))
       this.$http
         .post(
-          this.ipAddress + "/measurements",
+          "http://localhost:9092/measurements/",
           JSON.stringify(this.form),
-          this.headers
+          {
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+          }
         )
         .then(
           (data) => {
@@ -422,6 +427,7 @@ export default {
             console.log(data);
             // this.result = "Successfully add user to the database";
             // this.checkIdFromNewAddedUser();
+            console.log(JSON.stringify(this.form))
           },
           (data) => {
             if (data.status === 403) {
@@ -433,7 +439,6 @@ export default {
           }
         );
     },
-
     sendFormMeasurementToBackendSecond() {
       return axios
         .post("http://localhost:9092/measurements/", {
