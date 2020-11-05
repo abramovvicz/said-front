@@ -58,17 +58,17 @@
             <v-col justify="left" align="left">
               Wybierz średnicę:
               <v-radio-group v-model="form.hydrantDiameter" row>
-                <v-radio label="DN80" value="radio-1"></v-radio>
-                <v-radio label="DN100" value="radio-2"></v-radio>
+                <v-radio label="DN80" value="DN80"></v-radio>
+                <v-radio label="DN100" value="DN100"></v-radio>
                 <v-radio
                   v-if="form.hydrantDiameter === 1"
                   label="DN150"
-                  value="radio-3"
+                  value="DN150"
                 ></v-radio>
                 <v-radio
                   v-if="form.hydrantDiameter === 1"
                   label="DN200"
-                  value="radio-4"
+                  value="DN200"
                 ></v-radio>
               </v-radio-group>
             </v-col>
@@ -77,9 +77,9 @@
             <v-col justify="left" align="left">
               Wybierz średnicę:
               <v-radio-group v-model="form.hydrantDiameter" row>
-                <v-radio label="DN25" value="radio-1"></v-radio>
-                <v-radio label="DN33" value="radio-2"></v-radio>
-                <v-radio label="DN52" value="radio-3"></v-radio>
+                <v-radio label="DN25" value="DN25"></v-radio>
+                <v-radio label="DN33" value="DN33"></v-radio>
+                <v-radio label="DN52" value="DN52"></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
@@ -87,18 +87,18 @@
             <v-col justify="left" align="left">
               Dostępość do hydrantu:
               <v-radio-group v-model="form.hydrantAvailable" row>
-                <v-radio label="TAK" value="radio-1"></v-radio>
-                <v-radio label="NIE" value="radio-2"></v-radio>
+                <v-radio label="TAK" value="TAK"></v-radio>
+                <v-radio label="NIE" value="NIE"></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
 
           <v-row>
             <v-col justify="left" align="left">
-              Dostępość do zasuwy:
+              {{barAvailable}}
               <v-radio-group v-model="form.barAvailable" row>
-                <v-radio label="TAK" value="radio-1"></v-radio>
-                <v-radio label="NIE" value="radio-2"></v-radio>
+                <v-radio label="TAK" value="TAK" v-on:change="addDescriptionsForMeasurement( barAvailable, 'TAK', barAvailableComment)"></v-radio>
+                <v-radio label="NIE" value="NIE" v-on:change="addDescriptionsForMeasurement( barAvailable, 'NIE', barAvailableComment)"></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
@@ -107,8 +107,8 @@
             <v-col justify="left" align="left">
               Oznakowanie hydrantu znakiem 'H'
               <v-radio-group v-model="form.asignH" row>
-                <v-radio label="TAK" value="radio-1"></v-radio>
-                <v-radio label="NIE" value="radio-2"></v-radio>
+                <v-radio label="TAK" value="TAK"></v-radio>
+                <v-radio label="NIE" value="NIE"></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
@@ -117,8 +117,8 @@
             <v-col justify="left" align="left">
               Oznakowanie hydrantu tablicznką o.u.p.w.
               <v-radio-group v-model="form.asignOUPW" row>
-                <v-radio label="TAK" value="radio-1"></v-radio>
-                <v-radio label="NIE" value="radio-2"></v-radio>
+                <v-radio label="TAK" value="TAK"></v-radio>
+                <v-radio label="NIE" value="NIE"></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
@@ -127,8 +127,8 @@
             <v-col justify="left" align="left">
               Oznakowanie zasuwy tablicznką o.u.p.w.
               <v-radio-group v-model="form.asignBarOUPW" row>
-                <v-radio label="TAK" value="radio-1"></v-radio>
-                <v-radio label="NIE" value="radio-2"></v-radio>
+                <v-radio label="TAK" value="TAK"></v-radio>
+                <v-radio label="NIE" value="NIE"></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
@@ -137,8 +137,8 @@
             <v-col justify="left" align="left">
               Stan nasad Storz`a
               <v-radio-group v-model="form.storz" row>
-                <v-radio label="OK" value="radio-1"></v-radio>
-                <v-radio label="NIE OK" value="radio-2"></v-radio>
+                <v-radio label="OK" value="OK"></v-radio>
+                <v-radio label="NIE OK" value="NIE OK"></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
@@ -147,8 +147,8 @@
             <v-col justify="left" align="left">
               Stan uszczelek
               <v-radio-group v-model="form.rubber" row>
-                <v-radio label="OK" value="radio-1"></v-radio>
-                <v-radio label="NIE OK" value="radio-2"></v-radio>
+                <v-radio label="OK" value="OK"></v-radio>
+                <v-radio label="NIE OK" value="NIE OK"></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
@@ -157,10 +157,10 @@
             <v-col justify="left" align="left">
               Ilość pokryw
               <v-radio-group v-model="form.cover" row>
-                <v-radio label="1" value="radio-1"></v-radio>
-                <v-radio label="2" value="radio-2"></v-radio>
-                <v-radio label="3" value="radio-3"></v-radio>
-                <v-radio label="4" value="radio-4"></v-radio>
+                <v-radio label="1" value="1"></v-radio>
+                <v-radio label="2" value="2"></v-radio>
+                <v-radio label="3" value="3"></v-radio>
+                <v-radio label="4" value="4"></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
@@ -168,8 +168,8 @@
             <v-col justify="left" align="left">
               Odległość od najbliższego budynku
               <v-radio-group v-model="form.nearestBuilding" row>
-                <v-radio label="OK" value="radio-1"></v-radio>
-                <v-radio label="NIE OK" value="radio-2"></v-radio>
+                <v-radio label="OK" value="OK"></v-radio>
+                <v-radio label="NIE OK" value="NIE OK"></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
@@ -178,8 +178,8 @@
             <v-col justify="left" align="left">
               Odwodnienie hydrantu:
               <v-radio-group v-model="form.dehydration" row>
-                <v-radio label="NIE ODWADNIA SIĘ" value="radio-1"></v-radio>
-                <v-radio label="ODWADNIA SIĘ" value="radio-2"></v-radio>
+                <v-radio label="NIE ODWADNIA SIĘ" value="NIE ODWADNIA SIĘ"></v-radio>
+                <v-radio label="ODWADNIA SIĘ" value="ODWADNIA SIĘ"></v-radio>
               </v-radio-group>
             </v-col>
           </v-row>
@@ -339,9 +339,15 @@ export default {
       updatedAt: this.updatedAt,
       descriptions: [
         {
-          name: "parametr 100 ",
-          status: 1,
-          comments: "chuj",
+          name: "",
+          status: "",
+          comments: "",
+          createdAt: "",
+        },
+        {
+          name: "name2",
+          status: "status 2",
+          comments: "comment 2",
           createdAt: "",
         },
       ],
@@ -375,7 +381,9 @@ export default {
       },
       ipAddress: "http://localhost:9092",
       hydrantAvailable: "",
-      barAvailable: "",
+      barAvailable: "Dostępość do zasuwy: ",
+      barAvailableComment: "brak",
+      barAvailableStatus: "",
       nameNet: "",
       address: "",
       asignH: "",
@@ -386,6 +394,8 @@ export default {
       cover: "",
       nearestBuilding: "",
       dehydration: "",
+      measurementForm:"",
+      
     };
   },
   methods: {
@@ -404,6 +414,14 @@ export default {
         // .toJSON()
         // .slice(0, 10)
         // .replace(/-/g, ".");
+    },
+    addDescriptionsForMeasurement(name, status, comment){
+      this.barAvailable = name;
+      this.barAvailableStatus = status;
+      this.barAvailableComment = comment;
+      // this.measurementForm.descriptions[0].push(this.barAvailableComment, this.barAvailableStatus, this.barAvailableComment)
+        // console.log(this.measurementForm.descriptions[0])
+
     },
     countUpdatedAt() {
       this.form.updatedAt = moment(this.createdAt);
