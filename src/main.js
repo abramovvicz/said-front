@@ -4,10 +4,12 @@ import VueAxios from 'vue-axios'
 import App from './App.vue'
 import vuetify from '@/plugins/vuetify'
 import moment from 'moment'
+import router from './router'
+import store from './store'
 
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
-Vue.use(VueAxios, axios)
+
 
 Vue.filter('formatDate', function(value){
   if(value){
@@ -15,8 +17,10 @@ Vue.filter('formatDate', function(value){
   }
 })
 
-
 new Vue({
   vuetify,
   render: h => h(App),
+  store,
+  router
+  
 }).$mount('#app')
