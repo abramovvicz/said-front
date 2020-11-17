@@ -5,9 +5,9 @@
         <v-card class="pa-2" flat>
           <v-row class="mb-6">
             <v-col>
-           <Measurement />
+           <!-- <Measurement /> -->
            <Measurements />
-           <MeasurementView />
+           <!-- <MeasurementView /> -->
             </v-col>
           </v-row>
         </v-card>
@@ -18,16 +18,16 @@
 
 
 <script>
-import Measurement from "./Measurement.vue";
-import Measurements from "./Measurements.vue";
-import MeasurementView from "./MeasurementView.vue";
+// import Measurement from "./Measurement.vue";
+// import Measurements from "./Measurements.vue";
+// import MeasurementView from "./MeasurementView.vue";
 
 export default {
   name: "App",
   components: {
-    Measurement,
-    Measurements,
-    MeasurementView
+    // Measurement,
+    // Measurements,
+    // MeasurementView
   },
   data: () => ({
     items: ["Foo", "Bar", "Fizz", "Buzz"],

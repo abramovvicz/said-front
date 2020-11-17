@@ -60,43 +60,6 @@
     </v-card>
   </v-list>
     </v-container>
-  <!-- <table class="sectioned">
-      <tbody>
-        <tr v-for="m in measurements" v-bind:key="m.id">
-          <td></td>
-          <td>{{ m.address }}</td>
-          <td>{{ m.createdAt }}</td>
-          <td>{{ m.updatedAt }}</td>
-          <td>{{ m.hydrantType }}</td>
-          <td>{{ m.hydrantSubType }}</td>
-          <td>{{ m.hydrantDiameter }}</td>
-          <td>
-            <tr v-for="d in m.descriptions" v-bind:key="d.id">
-              <td>{{ d.id }}</td>
-              <td>
-                {{ d.createdAt }}
-              </td>
-              <td>
-                {{ d.updatedAt }}
-              </td>
-              <td>
-                {{ d.measurementId }}
-              </td>
-              <td>
-                {{ d.name }}
-              </td>
-              <td>
-                {{ d.status }}
-              </td>
-              <td>
-                {{ d.commentss }}
-              </td>
-            </tr>
-          </td>
-          <td><img src="src" /></td>
-        </tr>
-      </tbody>
-    </table> -->
 </template>
 
 <script>
@@ -114,7 +77,7 @@ export default {
     return {
       measurements: [],
       descriptions: [],
-      src: "data:image/jpeg;base64",
+       src: "data:image/jpeg;base64",
       names: [
         {
           id: 1,
