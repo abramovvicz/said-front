@@ -1,6 +1,4 @@
 <template>
-  
-
      <v-row class="mb-6">
       <v-col cols="12" sm="2" md="2"> </v-col>
       <v-col>
@@ -8,24 +6,28 @@
           <v-row class="mb-6">
             <v-col>
            <Measurement />
+           <Measurements />
+           <MeasurementView />
             </v-col>
           </v-row>
         </v-card>
       </v-col>
       <v-col cols="12" sm="2" md="2"> </v-col>
     </v-row>
-
-
 </template>
 
 
 <script>
 import Measurement from "./Measurement.vue";
+import Measurements from "./Measurements.vue";
+import MeasurementView from "./MeasurementView.vue";
 
 export default {
   name: "App",
   components: {
     Measurement,
+    Measurements,
+    MeasurementView
   },
   data: () => ({
     items: ["Foo", "Bar", "Fizz", "Buzz"],
