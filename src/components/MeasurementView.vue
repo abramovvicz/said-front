@@ -31,7 +31,7 @@
       <v-col cols="12" sm="6" md="8">
         <h4>Arkusz badania hydrantu:</h4>
         <v-card class="pa-2" outlined tile align="left" justify="left">
-          <v-data-table
+          <!-- <v-data-table
             :headers="headers"
             :items="measurement"
             :loading="loading"
@@ -39,7 +39,7 @@
             :options.sync="options"
             class="elevation-1"
           >
-          </v-data-table>
+          </v-data-table> -->
         </v-card>
       </v-col>
     </v-row>
@@ -56,7 +56,7 @@ export default {
       createdAt: "",
       descriptions: [],
       options: {},
-       loading: true,
+      loading: true,
       headers: [
         {
           text: "Fake name",
@@ -83,9 +83,9 @@ export default {
   },
   methods: {
     getMeasurment() {
-          this.loading = true
+      this.loading = true;
       return axios
-        .get("http://localhost:9092/measurements/8/")
+        .get("http://localhost:9092/measurements/" + this.$route.query.id)
         .then((response) => {
           this.measurement = response.data.result;
           this.descriptions = this.measurement.descriptions;

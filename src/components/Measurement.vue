@@ -402,5 +402,9 @@ table.sectioned tbody {
   border-collapse: separate;
   border-spacing: 4px;
 }
+.container{
+
+  padding-bottom: 20%;
+}
 </style>
 
