@@ -75,6 +75,9 @@ export default {
       handler() {
         this.getMeasurment();
       },
+      // $route(to, from) {
+      //   console.loading(this.$route.query.id);
+      // },
       deep: true,
     },
   },
