@@ -49,7 +49,7 @@
             </v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-content>
-            <router-link :to="{ path: '/measuremenetView/'+ m.id}">
+            <router-link :to="{ path: '/measurementView/'+ m.id}">
              <v-btn text>
                 <v-icon> mdi-arrow-right  </v-icon>
                 {{m.id}}

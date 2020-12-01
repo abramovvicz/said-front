@@ -13,7 +13,7 @@ const router = new VueRouter({
     mode: "history",
     routes: [
         {
-            path: "/", name:'App', components: {
+            path: "/", name: 'App', components: {
                 default: Measurements,
                 'headerView': Header,
                 // 'contentView': Content,
@@ -22,7 +22,16 @@ const router = new VueRouter({
         },
         { path: "/measurement", component: Measurement },
         { path: "/measurements", component: Measurements },
-        { path: "/measurementView/:id", component: MeasurementsView },
+        { path: "/measurementView/:id", component: MeasurementsView, props: true },
+        {
+            path: "/measurementView/:id",
+            components: {
+                default: Measurement,
+                'headerView': Header,
+                'footerView': Footer
+            }
+
+        },
         { path: "*", redirect: "/" }
     ]
 })
