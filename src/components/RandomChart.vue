@@ -27,12 +27,12 @@
           datasets: [
             {
               label: 'POMIAR',
-              backgroundColor: '#22452',
+              backgroundColor: '#f87979',
               data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
             }, {
               label: 'REFERENCJA',
               backgroundColor: '#f87979',
-              data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(),this.getRandomInt()  ]
+              data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
             }
           ]
         }
