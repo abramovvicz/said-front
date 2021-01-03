@@ -1,5 +1,7 @@
 <template>
   <v-container class="grey lighten-5">
+        <line-chart :chart-data="datacollection" :options="options">
+        </line-chart>
     <v-row>
       <v-col cols="12" md="12">
         <v-card class="pa-2" outlined tile align="left" justify="left">
@@ -8,7 +10,7 @@
               <tbody>
                 <tr>
                   <td>Protokół badania</td>
-                  <td>NAZWA PROTOKOŁU</td>
+                  <td>{{ measurement.protocol.toUpperCase() }}</td>
                 </tr>
                 <tr>
                   <td>Nazwa sieci:</td>
@@ -67,7 +69,6 @@
           </v-simple-table>
         </v-card>
       </v-col>
-
       <v-col cols="12" sm="6" md="8">
         <v-card class="pa-2" outlined tile align="left" justify="left">
           <v-simple-table>
@@ -78,7 +79,6 @@
                   :key="descriptions"
                 >
                   <td>{{ measurement.descriptions[key].name }}</td>
-
                   <td>{{ measurement.descriptions[key].status }}</td>
                   <td>{{ measurement.descriptions[key].comment }}</td>
                 </tr>
@@ -87,7 +87,6 @@
           </v-simple-table>
         </v-card>
       </v-col>
-
       <v-col cols="12" sm="12" md="12">
         <v-card class="pa-2" outlined tile align="left" justify="left">
           <v-simple-table>
@@ -117,14 +116,16 @@
 
 <script>
 import axios from "axios";
+import LineChart from '../../src/LineChart.js';
+
 export default {
+  components: { LineChart },
   data() {
     return {
       id: this.$route.params.id,
       measurement: [],
       createdAt: "",
       descriptions: [],
-      options: {},
       loading: true,
       headers: [
         {
@@ -137,18 +138,31 @@ export default {
         { text: "Status", value: "status" },
         { text: "Comment", value: "comment" },
       ],
+    loaded: false,
+    datacollection:null,
+    options: {
+                chartData:[],
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+
+                        },
+                        type: 'linear',
+                        position: 'bottom'
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }]
+                }
+            },
+    
     };
   },
-  watch: {
-    options: {
-      handler() {
-        this.getMeasurment();
-      },
-      deep: true,
-    },
-  },
   mounted() {
-    this.getMeasurment();
+    this.getMeasurment()
   },
   methods: {
     getMeasurment() {
@@ -161,14 +175,35 @@ export default {
           this.measurement = response.data.result;
           this.descriptions = this.measurement.descriptions;
           this.address = this.measurement.address;
-          console.log(this.measurement);
           this.loading = false;
-        })
+          this.options.chartData[0] = this.measurement.staticPressure;
+          this.options.chartData[1] = this.measurement.dynamicPressure; 
+          this.options.chartData[3] = this.measurement.hydrantEfficiency;
+          this.loaded = true;
+          this.fillData()
+          })
         .catch((e) => {
           console.log(e);
         });
     },
-  },
+    fillData() {
+            this.datacollection = {
+                datasets: [{
+                    label: 'REFERENCJA',
+                    backgroundColor: '#ffffff00',
+                    borderColor: '#f87979',
+                    steppedLine: true,
+                    data: [{ x: 0, y: 2 }, { x: 10, y: 0 }]  // const - referencja pomiaru 
+                }, {
+                    label: 'POMIAR',
+                    borderColor: '#388372',
+                    backgroundColor: '#ffffff00',
+                    steppedLine: false,
+                    data: [{ x: 0, y: this.options.chartData[0]}, { x:this.options.chartData[1], y:  this.options.chartData[3]}]
+                }],
+            }
+      }
+    }
 };
 </script>
 
