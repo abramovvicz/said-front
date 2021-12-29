@@ -5,6 +5,7 @@
     <!-- <Content msg="content"/> -->
     <!-- <Footer msg="footer"/> -->
       <headerView></headerView>
+      <!-- <contentView></contentView> -->
       <router-view/>
       <footerView></footerView>
     <!-- <router-view name="contentView"></router-view> -->
@@ -16,13 +17,12 @@
 import Footer from './components/Footer'
 import Header from './components/Header'
 
+
 export default {
   name: 'App',
   components: {
     headerView:Header,
     footerView:Footer,
-    // chartView:RandomChart
-
   }
 }
 </script>

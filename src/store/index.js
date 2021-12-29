@@ -17,7 +17,7 @@ description: `To jest Produkt #${i}`, price: i * 50
 export default new Vuex.Store({
     strict:true,
     state:{
-        idAddress:"http://localhost:9092",
+        idAddress:'http://localhost:9092',
         contentType: "Content-Type",
         header:"application/json;charset=utf-8",
         products:testData,

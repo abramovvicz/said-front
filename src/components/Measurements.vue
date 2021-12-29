@@ -1,5 +1,5 @@
 <template>
-    <v-container class="container-fluid grey lighten-5">
+    <v-container class="container-fluid grey lighten-5" >
         <v-row class="mb-6">
             <v-col cols="12" sm="2" md="2"> </v-col>
             <v-col>
@@ -53,6 +53,7 @@ export default {
     },
     data() {
         return {
+            dialog:false,
             measurements: [],
             descriptions: [],
             src: "data:image/jpeg;base64",

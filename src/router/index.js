@@ -7,6 +7,7 @@ import Header from "../components/Header";
 // import Content from "../components/Content";
 import Footer from "../components/Footer"
 
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -16,7 +17,7 @@ const router = new VueRouter({
             path: "/", name: 'App', components: {
                 default: Measurements,
                 'headerView': Header,
-                // 'contentView': Content,
+                // 'contentView': SimpleTest,
                 'footerView': Footer
             }
         },
